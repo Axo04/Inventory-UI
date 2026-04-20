@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Inventory UI</title>
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #0f0f14;
+    color: white;
+    font-family: Arial;
+}
+
+/* panel */
+.panel {
+    width: 750px;
+    height: 400px;
+    background: #1a1a24;
+    border-radius: 20px;
+    padding: 20px;
+    display: flex;
+    gap: 20px;
+}
+
+/* items */
+.items {
+    display: flex;
+    gap: 10px;
+}
+
+.item {
+    width: 60px;
+    height: 60px;
+    background: #2a2a3a;
+    border-radius: 10px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+}
+
+.item img {
+    width: 80%;
+    height: 80%;
+}
+
+/* info panel */
+.info-panel {
+    flex: 1;
+    background: #14141c;
+    border-radius: 15px;
+    padding: 15px;
+}
+
+.info-panel p {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* icons */
+.stat-icon {
+    width: 50px;
+    height: 50px;
+}
+
+/* labels */
+.label {
+    color: #aaa;
+}
+
+/* name */
+#name {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+/* enchant box */
+.enchant-box {
+    margin-top: 15px;
+    display: flex;
+    gap: 10px;
+}
+
+.enchant-box select {
+    background: #2a2a3a;
+    color: white;
+    border: none;
+    padding: 6px;
+    border-radius: 6px;
+}
+
+.enchant-box button {
+    background: #3a3a55;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* enchant display */
+#enchantDisplay {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+#enchantIcon {
+    width: 50px;
+    height: 50px;
+}
+#enchantDescBox {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+#enchantDesc {
+    opacity: 0.8;
+    text-align: center;
+}
+
+#enchantTitle {
+    font-weight: bold;
+
+}
+.enchant-box {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center; /* 👈 centers it */
+    gap: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="panel">
+
+    <!-- ITEMS -->
+    <div class="items">
+        <div class="item" onclick="showItem('Flame Sword', 60, 'Magma', 150)">
+            <img src="flame.png">
+        </div>
+
+        <div class="item" onclick="showItem('Bow', 25, 'Common', 90)">
+            <img src="bow.png">
+        </div>
+
+        <div class="item" onclick="showItem('Axe', 40, 'Rare', 120)">
+            <img src="axe.png">
+        </div>
+
+        <div class="item" onclick="showItem('Fangs of Frost', 10, 'Epic', 50)">
+            <img src="fof.png">
+        </div>
+
+         <div class="item" onclick="showItem('Staff', 100, 'Terror', 200)">
+            <img src="staff.png">
+        </div>
+    </div>
+
+    <!-- INFO -->
+    <div class="info-panel">
+        <h2 id="name">Select Item</h2>
+
+        <p>
+            <img class="stat-icon" src="damage.png">
+            <span class="label">Damage:</span>
+            <span id="damage"></span>
+        </p>
+
+        <p>
+            <img class="stat-icon" src="rarity.png">
+            <span class="label">Rarity:</span>
+            <span id="rarity"></span>
+        </p>
+
+        <p>
+            <img class="stat-icon" src="poweer.png">
+            <span class="label">Max LVL:</span>
+            <span id="max power lvl"></span>
+        </p>
+
+        <!-- ENCHANT DISPLAY -->
+        <div id="enchantDisplay">
+            <img id="enchantIcon" src="enchant.png">
+            <span id="enchantName"></span>
+        </div>
+        <p id="enchantDescBox">
+    <span id="enchantTitle"></span>
+    <span id="enchantDesc"></span>
+</p>
+
+        <!-- ENCHANT SELECT -->
+        <div class="enchant-box">
+            <select id="enchantSelect">
+                <option value="na">Select Enchant</option>
+                <option value="5">Frost (+5)</option>
+                <option value="1">+1</option>
+                <option value="10">Fire (+10)</option>
+                <option value="15">Shock (+15)</option>
+                <option value="loot">Loot+</option>
+            </select>
+
+            <button onclick="applyEnchant()">Apply</button>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+
+console.log("script loaded");
+let baseDamage = 0;
+
+function showItem(name, damage, rarity, power) {
+
+    baseDamage = damage;
+
+
+
+    let nameEl = document.getElementById("name");
+    let dmgEl = document.getElementById("damage");
+    let rarityEl = document.getElementById("rarity");
+
+    nameEl.textContent = name;
+    dmgEl.textContent = damage;
+    rarityEl.textContent = rarity;
+    document.getElementById("max power lvl").textContent = power;
+    // damage glow (based on value)
+if (parseInt(dmgEl.textContent) < 15) {
+    dmgEl.style.color = "#aaaaaa";
+    dmgEl.style.textShadow = "0 0 4px #888";
+}
+else if (parseInt(dmgEl.textContent) < 30) {
+    dmgEl.style.color = "#3aa0ff";
+    dmgEl.style.textShadow = "0 0 6px #3aa0ff";
+}
+else if (parseInt(dmgEl.textContent) < 50) {
+    dmgEl.style.color = "#a335ee";
+    dmgEl.style.textShadow = "0 0 8px #a335ee";
+}
+else {
+    dmgEl.style.color = "#ff9a00";
+    dmgEl.style.textShadow = "0 0 10px #ff9a00";
+}
+
+let powerEl = document.getElementById("max power lvl");
+
+powerEl.style.color = "#00ff88";
+powerEl.style.textShadow = "0 0 8px #00A303";
+    let r = rarity.toLowerCase();
+
+    // reset
+    nameEl.style.color = "white";
+    nameEl.style.textShadow = "none";
+    rarityEl.style.color = "white";
+    rarityEl.style.textShadow = "none";
+
+    // rarity glow
+
+   const rarityColors = {
+    common: "#aaaaaa",
+    rare: "#3aa0ff",
+    epic: "#a335ee",
+    legendary: "#ff9a00",
+    magma: "#ff6600",
+    terror: "#9900D1"
+};
+
+let color = rarityColors[r] || "white";
+
+rarityEl.style.color = color;
+rarityEl.style.textShadow = "0 0 10px " + color;
+
+    // apply glow to name
+    nameEl.style.color = rarityEl.style.color;
+    nameEl.style.textShadow = rarityEl.style.textShadow;
+}
+
+
+
+function applyEnchant() {
+
+    let select = document.getElementById("enchantSelect");
+    let enchantName = document.getElementById("enchantName");
+    let title = document.getElementById("enchantTitle");
+    let desc = document.getElementById("enchantDesc");
+    let icon = document.getElementById("enchantIcon");
+
+    let value = parseInt(select.value);
+    let text = select.options[select.selectedIndex].text;
+
+    // ✅ DO NOT BLOCK value 0 (Loot+)
+    if (value === null || value === undefined) return;
+
+    // ✅ ONLY apply damage if value > 0
+    if (value > 0) {
+        document.getElementById("damage").textContent = baseDamage + value;
+    }
+
+    
+
+    // ✅ KEEP YOUR +1 SYSTEM
+    enchantName.textContent = "+" + value;
+
+    // reset
+    title.textContent = "NA";
+    desc.textContent = "No enchant selected. Select a enchant to see what it does.";
+    icon.src = "na.png";
+    enchantName.style.color = "#B900D1";
+
+    // enchant logic
+
+    if (text.includes("Select Enchant")) {
+        title.textContent = "NA";
+        desc.textContent = "No enchant.";
+        icon.src = "na.png";
+        enchantName.style.color = "#7B2828";
+    }
+    if (text.includes("Frost")) {
+        title.textContent = "Frost";
+        desc.textContent = "Slows enemies";
+        icon.src = "frost.png";
+        enchantName.style.color = "#3aa0ff";
+    }
+    else if (text.includes("Fire")) {
+        title.textContent = "Fire";
+        desc.textContent = "Burns enemies";
+        icon.src = "fire.png";
+        enchantName.style.color = "#ff6600";
+    }
+    else if (text.includes("Shock")) {
+        title.textContent = "Shock";
+        desc.textContent = "Chains lightning";
+        icon.src = "shock.png";
+        enchantName.style.color = "#ffff00";
+    }
+    else if (text.includes("Loot+")) {
+        title.textContent = "Loot+";
+        desc.textContent = "+25% emeralds, +15% food";
+        icon.src = "lootupg.png";
+        enchantName.style.color = "#8AFF9D";
+    }
+    else if (text.includes("+1")) {
+        title.textContent = "+1 Boost";
+        desc.textContent = "Minor power increase";
+        icon.src = "plusone.png";
+        enchantName.style.color = "#00D1C0";
+    }
+
+    // glow
+    enchantName.style.textShadow = "0 0 6px " + enchantName.style.color;
+    desc.style.color = enchantName.style.color;
+    desc.style.textShadow = "0 0 6px " + enchantName.style.color;
+}
+
+    
+
+
+
+    // update damage
+   
+
+    // show enchant name
+   
+
+    
+</script>
+
+</body>
+</html>
