@@ -1,5 +1,6 @@
 # Inventory UI (Web) 
-
+v2 in progress.
+---
 # IMPORTANT INFO
  
 INVENTORY UI V2 IS GOING TO BE RELEASED SOON!!
