@@ -1,4 +1,10 @@
-# Inventory UI (Web)
+# Inventory UI (Web) 
+
+# IMPORTANT INFO
+ 
+INVENTORY UI V2 IS GOING TO BE RELEASED SOON!!
+
+---
 
 A simple, customizable inventory UI built with HTML, CSS, and JavaScript.
 
