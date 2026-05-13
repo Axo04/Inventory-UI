@@ -11,7 +11,9 @@ A simple, customizable inventory UI built with HTML, CSS, and JavaScript.
 
 This project is meant to be a base system / sandbox that anyone can edit, expand, and remix.
 
--ps- _v2 will also be built on this_
+ps--
+
+ _v2 will also be built on this_
 ---
 
 ## ✨ Features
